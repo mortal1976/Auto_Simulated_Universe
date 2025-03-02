@@ -25,7 +25,7 @@ jobs:
 
       - name: 打包为EXE
         run: |
-          pyinstaller --onefile --windowed your_script.py  # 替换为你的入口文件
+          pyinstaller --onefile --windowed diver.py  # 替换为你的入口文件
           # --onefile: 单文件打包；--windowed: 隐藏控制台窗口（适用于GUI程序）<button class="citation-flag" data-index="1"><button class="citation-flag" data-index="7">
 
       - name: 上传构建产物
