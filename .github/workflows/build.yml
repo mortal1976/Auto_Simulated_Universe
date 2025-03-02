@@ -1,0 +1,12 @@
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: go build -o output.exe
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: executable
+        path: output.exe
