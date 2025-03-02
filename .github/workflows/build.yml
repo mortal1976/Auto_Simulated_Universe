@@ -21,15 +21,17 @@ jobs:
       - name: 安装依赖
         run: |
           pip install --upgrade pip
-          pip install pyinstaller  # 安装打包工具<button class="citation-flag" data-index="1"><button class="citation-flag" data-index="7">
+          pip install -r requirements.txt # 确保依赖完整
+          pip install pyinstaller  # 安装打包工具
+
 
       - name: 打包为EXE
         run: |
-          pyinstaller --onefile --windowed diver.py  # 替换为你的入口文件
-          # --onefile: 单文件打包；--windowed: 隐藏控制台窗口（适用于GUI程序）<button class="citation-flag" data-index="1"><button class="citation-flag" data-index="7">
-
+          pyinstaller --onefile --windowed diver.py  # 替换为你的入口文件--onefile: 单文件打包；--windowed: 隐藏控制台窗口（适用于GUI程序）
+          run: dir dist  # 查看 dist 目录内容
       - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
           name: Windows-App
-          path: dist/your_script.exe  # 打包结果默认在dist目录<button class="citation-flag" data-index="1">
+          path: dist/diver.exe  # 打包结果默认在dist目录
+          include-hidden-files: true  # 允许上传隐藏文件
