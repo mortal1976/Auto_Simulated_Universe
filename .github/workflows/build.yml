@@ -27,11 +27,11 @@ jobs:
 
       - name: 打包为EXE
         run: |
-          pyinstaller --onefile --windowed diver.py  # 替换为你的入口文件--onefile: 单文件打包；--windowed: 隐藏控制台窗口（适用于GUI程序）
+          pyinstaller --onefile --windowed gui.py  # 替换为你的入口文件--onefile: 单文件打包；--windowed: 隐藏控制台窗口（适用于GUI程序）
           dir dist  # 查看 dist 目录内容
       - name: 上传构建产物
         uses: actions/upload-artifact@v4
         with:
           name: Windows-App
-          path: dist/diver.exe  # 打包结果默认在dist目录
+          path: dist/gui.exe  # 打包结果默认在dist目录
           include-hidden-files: true  # 允许上传隐藏文件
