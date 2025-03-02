@@ -1,12 +1,35 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [main]  # 触发条件：推送至main分支
+  release:
+    types: [created]  # 或触发条件：创建新Release
+
 jobs:
   build:
-    runs-on: windows10
+    runs-on: windows-latest  # 使用Windows虚拟环境
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: go build -o output.exe
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: executable
-        path: output.exe
+      - name: Checkout代码
+        uses: actions/checkout@v4
+
+      - name: 设置Python环境
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # 指定Python版本
+
+      - name: 安装依赖
+        run: |
+          pip install --upgrade pip
+          pip install pyinstaller  # 安装打包工具<button class="citation-flag" data-index="1"><button class="citation-flag" data-index="7">
+
+      - name: 打包为EXE
+        run: |
+          pyinstaller --onefile --windowed your_script.py  # 替换为你的入口文件
+          # --onefile: 单文件打包；--windowed: 隐藏控制台窗口（适用于GUI程序）<button class="citation-flag" data-index="1"><button class="citation-flag" data-index="7">
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows-App
+          path: dist/your_script.exe  # 打包结果默认在dist目录<button class="citation-flag" data-index="1">
